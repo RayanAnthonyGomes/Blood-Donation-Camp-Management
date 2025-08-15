@@ -16,9 +16,16 @@ struct Donor {
     struct Donor* next;
 };
 
-
 //Donor er action gula define kortesi
-struct Action {
-    char type[10]; // "REG" or "CAN"
+        struct selectedAction {
+    char type[10]; // "REGISTRATION" naki "CANCEL"
     struct Donor donor;
 };
+
+//Waiting list er structure define kortesi
+        struct waitEntry {
+    char name[50], bg[4], contact[20];
+};
+
+
+
