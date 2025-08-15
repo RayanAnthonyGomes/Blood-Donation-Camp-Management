@@ -9,4 +9,10 @@
 #define STACK_SIZE 20             
 #define QUEUE_SIZE 20    
 
+//Donor er structure define kortesi
+struct Donor {
+    int id;
+    char name[50], bloodgroup[4], contact[20];
+    struct Donor* next;
+};
 
