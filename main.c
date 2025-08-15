@@ -88,5 +88,32 @@ int validBloodGroup(char bg[]) {
                                 }
 }
 
+void registerDonor(char name[], char bg[], char contact[]) {
+
+ //validBloodGroup function call kore check kortesi
+    if (!validBloodGroup(bg)) { 
+            printf("Invalid BG!\n"); 
+            return;
+         }
+    //Donor er list full thakle waiting list e add kore
+    if (countList() >= MAX_SLOTS) {
+        printf("Full! You Added to waiting list.\n");
+        enqueue(name, bg, contact);
+        return;
+    }
+
+    struct Donor* d = malloc(sizeof(struct Donor));
+    d->id = nextId++;
+    strcpy(d->name, name);
+    strcpy(d->bloodgroup, bg);
+    strcpy(d->contact, contact);
+    d->next = donorList;
+    donorList = d;
+    push("REG", d);
+    printf("Registered ID %d: %s (%s, %s)\n", d->id, d->name, d->bloodgroup, d->contact);
+}
+
+
+
 
 
