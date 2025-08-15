@@ -27,5 +27,6 @@ struct Donor {
     char name[50], bg[4], contact[20];
 };
 
-
+//Initial stage e top, front, rear egula linked list er jonno
+int top = -1, front = -1, rear = -1, nextId = 1;
 
