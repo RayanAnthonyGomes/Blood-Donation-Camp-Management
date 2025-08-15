@@ -17,7 +17,7 @@ struct Donor {
 };
 
 //Donor er action gula define kortesi
-        struct selectedAction {
+struct Action {
     char type[10]; // "REGISTRATION" naki "CANCEL"
     struct Donor donor;
 };
@@ -33,5 +33,27 @@ struct Action stack[STACKSIZE]; // Undo er option er jonno stack
 struct waitEntry waitQueue[QUEUESIZE]; // Waiting list queue
 int top = -1, front = -1, rear = -1, nextId = 1;
 
-const char* bloodGroups[] = {"A+","A-","B+","B-","AB+","AB-","O+","O-"};
-int BG_COUNT = 8;
+const char* bloodGroups[] = {"A+","A-","B+","B-","AB+","AB-","O+","O-"}; //blood groups er array
+int BG_COUNT = 8; //total blood groups er count 8 ta
+
+//Register kora donor der list
+int countList() {
+    int c = 0;
+    struct Donor* t = donorList;
+    while (t) { c++; t = t->next; }
+    return c;
+}
+
+//undo stack er push  to undo stack-> action type ar donor details duitia copy kore
+void push(char type[], struct Donor* d) {
+    if (top < STACKSIZE-1) { 
+        top++;
+        strcpy(stack[top].type, type);
+        stack[top].donor = *d;
+    }
+}
+
+struct Action pop() { //last action ta undo stack theke pop kore 
+    return stack[top--]; 
+}
+
