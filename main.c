@@ -30,3 +30,4 @@ struct Donor {
 //Initial stage e top, front, rear egula linked list er jonno
 int top = -1, front = -1, rear = -1, nextId = 1;
 
+const char* bloodGroups[] = {"A+","A-","B+","B-","AB+","AB-","O+","O-"};
