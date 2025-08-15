@@ -141,4 +141,36 @@ void viewWait() {
     for (int i = front; i <= rear; i++)
         printf("%s (%s, %s)\n", waitQueue[i].name, waitQueue[i].bg, waitQueue[i].contact);
 }
+//Undo action gula perform kortesi, jodi stack empty thake tahole "Nothing to undo" print kore]
+//Jodi last e reg kore cancel korbo, jodi cancel kore reg korbo
+void undo() {
+    if (top == -1) { printf("Nothing to undo.\n"); return; }
+    struct Action a = pop();
+    if (strcmp(a.type,"REG")==0)
+        cancelDonor(a.donor.id);
+    else if (strcmp(a.type,"CAN")==0)
+        registerDonor(a.donor.name, a.donor.bloodgroup, a.donor.contact);
+}
 
+int main() {
+    int choice,id;
+    char name[50],bg[4],contact[20];
+    while (1) {
+        printf("\n1.Register 2.Cancel 3.View 4.Waiting 5.Undo 6.Exit\nChoice: ");
+        scanf("%d",&choice);
+        if (choice==1) {
+            printf("Name: "); scanf("%s",name);
+            printf("BG: "); scanf("%s",bg);
+            printf("Contact: "); scanf("%s",contact);
+            registerDonor(name,bg,contact);
+        }
+        else if (choice==2) {
+            printf("ID: "); scanf("%d",&id);
+            cancelDonor(id);
+        }
+        else if (choice==3) viewDonors();
+        else if (choice==4) viewWait();
+        else if (choice==5) undo();
+        else if (choice==6) break;
+    }
+}
