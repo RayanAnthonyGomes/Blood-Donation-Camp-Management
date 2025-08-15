@@ -78,5 +78,15 @@ int dequeue(struct waitEntry* w) {
     return 1;
 }
 
+//valid blood group check kore, jodi valid hoy tahole 1 return kore, na hole 0 return kore
+int validBloodGroup(char bg[]) {
+    for (int i=0; i<BG_COUNT; i++)
+        if (strcmp(bg, bloodGroups[i]) == 0) {
+                                    return 1;
+                                }else{
+                                    return 0;
+                                }
+}
+
 
 
