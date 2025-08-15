@@ -113,7 +113,19 @@ void registerDonor(char name[], char bg[], char contact[]) {
     printf("Registered ID %d: %s (%s, %s)\n", d->id, d->name, d->bloodgroup, d->contact);
 }
 
-
+// first e donor id search kori, cancel action undo te push kortesi, more specifically "CAN", Linked list theke remove kortesi and jodi waiting list e manush thake tahole first one ta re register korai QUEUE er fifo principle use kore
+void cancelDonor(int id) {
+    struct Donor *t = donorList, *p = NULL;
+    while (t && t->id != id) { p = t; t = t->next; }
+    if (!t) { printf("Not found!\n"); return; }
+    push("CAN", t);
+    if (p) p->next = t->next;
+    else donorList = t->next;
+    free(t);
+    printf("Cancelled ID %d.\n", id);
+    struct waitEntry w;
+    if (dequeue(&w)) registerDonor(w.name, w.bg, w.contact);
+}
 
 
 
