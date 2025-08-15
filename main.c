@@ -126,6 +126,19 @@ void cancelDonor(int id) {
     struct waitEntry w;
     if (dequeue(&w)) registerDonor(w.name, w.bg, w.contact);
 }
-
-
+//Linked list er sob donor der view kortesi, jodi list empty thake tahole "No donors" print kore
+void viewDonors() {
+    struct Donor* t = donorList;
+    if (!t) { printf("No donors.\n"); return; }
+    while (t) {
+        printf("ID %d: %s (%s, %s)\n", t->id, t->name, t->bloodgroup, t->contact);
+        t = t->next;
+    }
+}
+//Waiting list er sob entry gula view kortesi, jodi queue empty thake tahole "Empty" print kore
+void viewWait() {
+    if (front == -1 || front > rear) { printf("Empty.\n"); return; }
+    for (int i = front; i <= rear; i++)
+        printf("%s (%s, %s)\n", waitQueue[i].name, waitQueue[i].bg, waitQueue[i].contact);
+}
 
