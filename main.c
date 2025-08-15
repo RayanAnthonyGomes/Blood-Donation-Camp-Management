@@ -56,4 +56,27 @@ void push(char type[], struct Donor* d) {
 struct Action pop() { //last action ta undo stack theke pop kore 
     return stack[top--]; 
 }
+//Donor ke waiting queue te add kore and queue full thakle ignore kore
+void enqueue(char name[], char bg[], char contact[]) {
+    if (rear == QUEUESIZE-1) {
+        return;}
+    if (front == -1) {
+        front = 0;
+        rear++;
+    }
+    strcpy(waitQueue[rear].name, name);
+    strcpy(waitQueue[rear].bg, bg);
+    strcpy(waitQueue[rear].contact, contact);
+}
+//First donor ta re remove kore waiting list theke, ekei sathe store kore pointer W e. Jodi queue empty thake tahole return 0 kore.
+int dequeue(struct waitEntry* w) {
+    if (front == -1 || front > rear){ 
+        return 0; //Queueu empty check kortesi
+    }else{
+        *w = waitQueue[front++];
+    }
+    return 1;
+}
+
+
 
