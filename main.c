@@ -6,8 +6,8 @@
 
 //COnsstant function gula define kortesi
 #define MAX_SLOTS 5               
-#define STACK_SIZE 20             
-#define QUEUE_SIZE 20    
+#define STACKSIZE 20             
+#define QUEUESIZE 20    
 
 //Donor er structure define kortesi
 struct Donor {
@@ -28,6 +28,10 @@ struct Donor {
 };
 
 //Initial stage e top, front, rear egula linked list er jonno
+struct Donor* donorList = NULL;  // linked list er head
+struct Action stack[STACKSIZE]; // Undo er option er jonno stack
+struct waitEntry waitQueue[QUEUESIZE]; // Waiting list queue
 int top = -1, front = -1, rear = -1, nextId = 1;
 
 const char* bloodGroups[] = {"A+","A-","B+","B-","AB+","AB-","O+","O-"};
+int BG_COUNT = 8;
