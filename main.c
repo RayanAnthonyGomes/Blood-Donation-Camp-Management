@@ -16,3 +16,9 @@ struct Donor {
     struct Donor* next;
 };
 
+
+//Donor er action gula define kortesi
+struct Action {
+    char type[10]; // "REG" or "CAN"
+    struct Donor donor;
+};
