@@ -5,7 +5,7 @@
 #include <ctype.h>
 
 //COnsstant function gula define kortesi
-#define MAX_SLOTS 2               
+#define MAX_SLOTS 3               
 #define STACKSIZE 20             
 #define QUEUESIZE 20    
 
@@ -37,7 +37,7 @@ const char* bloodGroups[] = {"A+","A-","B+","B-","AB+","AB-","O+","O-"}; //blood
 int BG_COUNT = 8; //total blood groups er count 8 ta
 
 //Register kora donor der list
-int countList() {
+int countList() { //Counts how many donors are currently registered, Traverses the linked list donorList and increments c until reaching NULL
     int c = 0;
     struct Donor* t = donorList;
     while (t) { c++; t = t->next; }
@@ -164,9 +164,12 @@ int main() {
     int choice,id;
     char name[50],bg[4],contact[20];
     while (1) {
+        printf("\033[1;36m");
         printf("Blood Donation Management System\n");
         printf("Saving Lives, One Drop at a Time\n");
-        printf("\n1.Register\n2.Cancel\n3.View\n4.Waiting\n5.Undo\n6.Exit\nChoice: ");
+        printf("\033[0m");
+        printf("------------------------------------\n");
+        printf("1.Register\n2.Cancel\n3.View Donors\n4.Waiting List\n5.Undo\n6.Exit\nChoice: ");
         scanf("%d",&choice);
         if (choice==1) {
             printf("Name: "); scanf("%s",name);
