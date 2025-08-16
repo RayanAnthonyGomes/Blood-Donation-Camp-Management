@@ -169,7 +169,7 @@ int main() {
         printf("Saving Lives, One Drop at a Time\n");
         printf("\033[0m");
         printf("------------------------------------\n");
-        printf("1.Register\n2.Cancel\n3.View Donors\n4.Waiting List\n5.Undo\n6.Exit\nChoice: ");
+        printf("1.Register as a Donor\n2.Cancel Donor \n3.View all Donors\n4.Waiting List\n5.Undo\n6.Exit\nChoice: ");
         scanf("%d",&choice);
         if (choice==1) {
             printf("Name: "); scanf("%s",name);
@@ -179,7 +179,8 @@ int main() {
         }
         else if (choice==2) {
             printf("ID: "); scanf("%d",&id);
-            cancelDonor(id);
+            
+
         }
         else if (choice==3) {
             viewDonors();
