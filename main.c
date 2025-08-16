@@ -5,7 +5,7 @@
 #include <ctype.h>
 
 //COnsstant function gula define kortesi
-#define MAX_SLOTS 5               
+#define MAX_SLOTS 2               
 #define STACKSIZE 20             
 #define QUEUESIZE 20    
 
@@ -23,7 +23,7 @@ struct Action {
 };
 
 //Waiting list er structure define kortesi
-        struct waitEntry {
+struct waitEntry {
     char name[50], bg[4], contact[20];
 };
 
@@ -56,23 +56,26 @@ void push(char type[], struct Donor* d) {
 struct Action pop() { //last action ta undo stack theke pop kore 
     return stack[top--]; 
 }
+
 //Donor ke waiting queue te add kore and queue full thakle ignore kore
 void enqueue(char name[], char bg[], char contact[]) {
-    if (rear == QUEUESIZE-1) {
-        return;}
-    if (front == -1) {
-        front = 0;
-        rear++;
+    if (rear == QUEUESIZE-1) { // Queue full check kortesi
+        return;
     }
+    if (front == -1) { // Prothom entry hole front set kortesi
+        front = 0;
+    }
+    rear++;
     strcpy(waitQueue[rear].name, name);
     strcpy(waitQueue[rear].bg, bg);
     strcpy(waitQueue[rear].contact, contact);
 }
+
 //First donor ta re remove kore waiting list theke, ekei sathe store kore pointer W e. Jodi queue empty thake tahole return 0 kore.
 int dequeue(struct waitEntry* w) {
     if (front == -1 || front > rear){ 
         return 0; //Queueu empty check kortesi
-    }else{
+    } else {
         *w = waitQueue[front++];
     }
     return 1;
@@ -80,21 +83,21 @@ int dequeue(struct waitEntry* w) {
 
 //valid blood group check kore, jodi valid hoy tahole 1 return kore, na hole 0 return kore
 int validBloodGroup(char bg[]) {
-    for (int i=0; i<BG_COUNT; i++)
+    for (int i = 0; i < BG_COUNT; i++) {
         if (strcmp(bg, bloodGroups[i]) == 0) {
-                                    return 1;
-                                }else{
-                                    return 0;
-                                }
+            return 1;
+        }
+    }
+    return 0;
 }
 
 void registerDonor(char name[], char bg[], char contact[]) {
 
- //validBloodGroup function call kore check kortesi
+    //validBloodGroup function call kore check kortesi
     if (!validBloodGroup(bg)) { 
-            printf("Invalid BG!\n"); 
-            return;
-         }
+        printf("Invalid BG!\n"); 
+        return;
+    }
     //Donor er list full thakle waiting list e add kore
     if (countList() >= MAX_SLOTS) {
         printf("Full! You Added to waiting list.\n");
@@ -126,6 +129,7 @@ void cancelDonor(int id) {
     struct waitEntry w;
     if (dequeue(&w)) registerDonor(w.name, w.bg, w.contact);
 }
+
 //Linked list er sob donor der view kortesi, jodi list empty thake tahole "No donors" print kore
 void viewDonors() {
     struct Donor* t = donorList;
@@ -135,13 +139,17 @@ void viewDonors() {
         t = t->next;
     }
 }
+
 //Waiting list er sob entry gula view kortesi, jodi queue empty thake tahole "Empty" print kore
 void viewWait() {
-    if (front == -1 || front > rear) { printf("Empty.\n"); return; }
+    if (front == -1 || front > rear) { 
+        printf("Empty.\n"); return; 
+    }
     for (int i = front; i <= rear; i++)
         printf("%s (%s, %s)\n", waitQueue[i].name, waitQueue[i].bg, waitQueue[i].contact);
 }
-//Undo action gula perform kortesi, jodi stack empty thake tahole "Nothing to undo" print kore]
+
+//Undo action gula perform kortesi, jodi stack empty thake tahole "Nothing to undo" print kore
 //Jodi last e reg kore cancel korbo, jodi cancel kore reg korbo
 void undo() {
     if (top == -1) { printf("Nothing to undo.\n"); return; }
@@ -156,7 +164,9 @@ int main() {
     int choice,id;
     char name[50],bg[4],contact[20];
     while (1) {
-        printf("\n1.Register 2.Cancel 3.View 4.Waiting 5.Undo 6.Exit\nChoice: ");
+        printf("Blood Donation Management System\n");
+        printf("Saving Lives, One Drop at a Time\n");
+        printf("\n1.Register\n2.Cancel\n3.View\n4.Waiting\n5.Undo\n6.Exit\nChoice: ");
         scanf("%d",&choice);
         if (choice==1) {
             printf("Name: "); scanf("%s",name);
@@ -168,9 +178,18 @@ int main() {
             printf("ID: "); scanf("%d",&id);
             cancelDonor(id);
         }
-        else if (choice==3) viewDonors();
-        else if (choice==4) viewWait();
-        else if (choice==5) undo();
-        else if (choice==6) break;
+        else if (choice==3) {
+            viewDonors();
+        }
+        else if (choice==4) {
+            viewWait();
+        }
+        else if (choice==5) {
+            undo();
+        }
+        else if (choice==6) {
+            break;
+            printf("Exiting Program!...\n");
+        }
     }
 }
